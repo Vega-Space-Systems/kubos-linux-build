@@ -1,5 +1,8 @@
 # CMM copied from BBB and modified.  RaspbberryPi and BBB shared most lines.
 # /etc/inittab
+# Used partions associated with BBB, but get rid of some lines associated with
+# SD card because there is no auxillary SD card: the sd card the only storage so there
+# cannot be a "no-SD-card case" like there is in the BBB inittab file
 #
 # Copyright (C) 2001 Erik Andersen <andersen@codepoet.org>
 # Copyright (C) 2018 Kubos Corporation
@@ -30,7 +33,7 @@
 ::sysinit:/bin/mount -a
 # Mount the Kubos directories which use partuuid
 ::sysinit:/bin/mount /home
-::sysinit:/bin/mount /home/microsd
+#::sysinit:/bin/mount /home/microsd
 ::sysinit:/bin/mount /upgrade
 ::sysinit:/bin/mount /envar
 # Setup hostname

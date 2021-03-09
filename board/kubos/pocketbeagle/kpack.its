@@ -1,4 +1,4 @@
-/* CMM - Changes need to be made.  I need to determine what to do for PocketBeagle device tree blob
+/* CMM - Changed name of device tree blob to pocketbeagle.dtb
  * Copyright (C) 2019 Kubos Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,22 +48,17 @@
 				algo = "sha256";
 			};
 		};
-
-# TODO CMM - determine pocketbeagle equivalent of this chunk
-
-#####
-#		beaglebone-black.dtb@1 {
-#			data = /incbin/("./beaglebone-black.dtb");
-#			type = "firmware";
-#			arch = "arm";
-#			os = "linux";
-#			compression = "none";
-#			load = <00000000>;
-#			entry = <00000000>;
-#			hash@1 {
-#				algo = "sha256";
-#			};
-#		};
-#####
+		pocketbeagle.dtb@1 {
+			data = /incbin/("./pocketbeagle.dtb");
+			type = "firmware";
+			arch = "arm";
+			os = "linux";
+			compression = "none";
+			load = <00000000>;
+			entry = <00000000>;
+			hash@1 {
+				algo = "sha256";
+			};
+		};
 	};
 };

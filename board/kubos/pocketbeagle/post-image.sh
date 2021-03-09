@@ -1,5 +1,5 @@
 #!/bin/sh
-# File needs work.  See TODO CMM 's 
+# File might need work.  See TODO CMM 's 
 
 BOARD_DIR="$(dirname $0)"
 CURR_DIR="$(pwd)"
@@ -11,17 +11,20 @@ GENIMAGE_TMP="${BUILD_DIR}/genimage.tmp"
 
 rm -rf "${GENIMAGE_TMP}"
 
-# Switch kernel parameter to u-boot
-sed -e '/^kernel=/s,=.*,=u-boot.bin,' -i "${BINARIES_DIR}/rpi-firmware/config.txt"
-
-# Enable uart console
-# CMM TODO Need to modify to not use "rpi" and instead use pocketbeagle firmware
-if ! grep -qE '^enable_uart=1' "${BINARIES_DIR}/rpi-firmware/config.txt"; then
-    cat << __EOF__ >> "${BINARIES_DIR}/rpi-firmware/config.txt"
-# enable rpi ttyS0 serial console
-enable_uart=1
-__EOF__
-fi
+######### CMM - determine if the u-boot and uart steps need to be completed (they are
+#completed in RPI code, not in BBB code)
+## Switch kernel parameter to u-boot
+#sed -e '/^kernel=/s,=.*,=u-boot.bin,' -i "${BINARIES_DIR}/rpi-firmware/config.txt"
+#
+## Enable uart console
+## CMM TODO Need to modify to not use "rpi" and instead use pocketbeagle firmware
+#if ! grep -qE '^enable_uart=1' "${BINARIES_DIR}/rpi-firmware/config.txt"; then
+#    cat << __EOF__ >> "${BINARIES_DIR}/rpi-firmware/config.txt"
+## enable rpi ttyS0 serial console
+#enable_uart=1
+#__EOF__
+#fi
+#########
 
 # Create the kernel FIT file
 cp ${BOARD_DIR}/kubos-kernel.its ${BINARIES_DIR}/
@@ -30,11 +33,9 @@ cd ${BR2_EXTERNAL_KUBOS_LINUX_PATH}/tools
 
 mv kubos-kernel.itb ${BINARIES_DIR}/kernel
 
-
-# TODO CMM need to change to pocketbeagle branch - may need to add to kubos-package.sh or even go deeper to add a package version for pocketbeagle
 # Create the base upgrade file
 cd ${BR2_EXTERNAL_KUBOS_LINUX_PATH}/tools
-./kubos-package.sh -b ${BRANCH} -t raspberrypi0 -v base -i ${BOARD_DIR}/kpack.its
+./kubos-package.sh -b ${BRANCH} -t pocketbeagle -v base -i ${BOARD_DIR}/kpack.its
 
 mv kpack-base.itb ${TARGET_DIR}/upgrade
 
