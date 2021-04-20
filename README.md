@@ -59,8 +59,7 @@ Enter the new folder
 
     $ cd kubos-linux
   
-Download BuildRoot-2019.02.2 (more current versions of BuildRoot may work as well,
-but all testing has been done against 2019.02.2)
+Download BuildRoot-2019.02.2 (more current versions of BuildRoot may cause dependency issues)
 
 .. note:: All Kubos documentation will refer to v2019.02.2, which is the latest version of the LTS release at the time of this writing.
 
@@ -69,6 +68,7 @@ but all testing has been done against 2019.02.2)
 Pull the kubos-linux-build repo
 
     $ git clone http://github.com/kubos/kubos-linux-build
+.. note:: At the time of writing, the repo with pocketbeagle support can be found at Vega-Space-Systems / kubos-linux-build on the pocketbeagle-support branch. (If you're reading this, you probably found it)
   
 Move into the buildroot directory
 
@@ -82,6 +82,8 @@ kubos-linux-build/configs)
 Build everything
 
     $ sudo make
+
+Build errors may be resolved by using the docker file found here: https://github.com/kubos/kubos/blob/master/tools/dist/Dockerfile.
   
 The full build process will take a while.  Running on a Linux VM, it took about an hour.  Running in native Linux, it took about
 twenty minutes.  Once this build process has completed once, you can run other BuildRoot commands to rebuild only certain sections
